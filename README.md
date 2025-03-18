@@ -1,16 +1,3 @@
-# stats220
-
-This is my repo for STATS 220. 
-
-## A little about me:
-
-- I am undertaking a degree in Psychology
-- I am taking STATS 220 because stats is useful in so many areas of life and work.
-- I am interested in learning about the patterns and cool codes that keep lectures interesting.
-
-A meme that captures how I currently feel about my university studies is ![](https://c.tenor.com/8druEACXtX8AAAAd/tenor.gif)
-
-
 # Stats220
 
 This is my repo for **STATS 220**.
@@ -28,6 +15,6 @@ This is my repo for **STATS 220**.
 
 ### A meme that captures how I currently feel about my university studies:
 
-![Meme](https://media.giphy.com/media/d2lcHJTG5Tscg/giphy.gif)
+![Meme](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmNtZG94ZmhvdGo5Y3Y3cGxhbHlkd3IwcGFxamJ0eHpiYms0eDJqMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/DwrnYsZCXspu8/giphy.gif)
 
 

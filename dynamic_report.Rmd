@@ -1,0 +1,111 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+body {
+ background-image: url("https://wallpapercave.com/wp/5cMmpLG.jpg");
+  background-size: auto;
+  background-position: center bottom;
+  background-blend-mode: lighten;
+  background-color: rgba(255, 255, 255, 0.4);
+  
+}
+
+
+p{
+ font-size: 18px; 
+ text-align: justify;
+}
+
+```
+
+## YouTube Advertisement Observational Survey
+
+
+```{r}
+library(tidyverse)
+
+# Read the CSV file from Google Sheets
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmQ-7xcBOQElBA2vJMQ7JWLk3QtNFinBmczBcZy-Pot5-jujm8c3rzCz74bJVoZhZrT0KJGpj0HZLy/pub?gid=1621387824&single=true&output=csv")
+
+
+# Rename the variables of the data frame
+latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSmQ-7xcBOQElBA2vJMQ7JWLk3QtNFinBmczBcZy-Pot5-jujm8c3rzCz74bJVoZhZrT0KJGpj0HZLy/pub?gid=1621387824&single=true&output=csv") %>%
+  rename(
+    video_type = 2,
+    video_duration = 3,
+    encountered_ads = 4,
+    number_ads = 5,
+    ads_related_video = 6,
+    ads_related_you = 7,
+    used_product_advertised = 8,
+    action_after_ad = 9
+  ) 
+
+```
+
+
+```{r}
+
+# Ensure video_duration is treated as numeric
+latest_data$video_duration <- as.numeric(latest_data$video_duration)
+
+# Calculate the mean, min, and max of the video_duration
+mean_video_duration <-mean_video_duration <- mean(latest_data$video_duration, na.rm = TRUE) %>%
+  round(2)
+min_duration <- min(latest_data$video_duration, na.rm = TRUE)
+max_duration <- max(latest_data$video_duration, na.rm = TRUE)
+
+# Calculate the mean_ads
+mean_ads <- mean(latest_data$number_ads, na.rm = TRUE) %>%
+  round(2)
+
+# Summary
+paste0("The mean video duration is ", mean_video_duration," minutes. With, the shortest video has a duration of ",min_duration," minutes, while the longest video has a duration of ",max_duration," minutes.")
+
+paste0("The mean number of ads encountered in these videos is ",mean_ads," ads.")
+
+
+```
+
+```{r}
+# Bar chart showing the frequency of encountering ads
+
+latest_data %>%
+  ggplot(aes(x = encountered_ads)) +
+  geom_bar(fill = "#FF6347", color = "black") +
+  theme_minimal() +
+  labs(
+    title = "Frequency of Encountering Ads",
+    x = "Encountered Ads",
+    y = "Count"
+  )
+```
+
+
+```{r}
+# Bar chart of mean number of ads by video type
+
+latest_data %>%
+  group_by(video_type) %>%
+  summarise(mean_ads = mean(number_ads, na.rm = TRUE)) %>%
+  ggplot(aes(x = video_type, y = mean_ads, fill = video_type)) +  # Map video_type to fill color
+  geom_bar(stat = "identity", color = "black") +  # Add borders to bars
+  theme_minimal() +
+  labs(
+    title = "Average Number of Ads by Video Type",
+    x = "Video Type",
+    y = "Average Number of Ads"
+  ) +
+  theme(
+    axis.text.x = element_blank(),  
+  )
+```
+
